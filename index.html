@@ -6,6 +6,58 @@
     <title>Document</title>
   </head>
   <body>
-    <script src="./index.js"></script>
+    <div class="page" id="page">
+      <div class="container">
+        <div class="buttons">
+          <button id="setLoginBtn">Login</button>
+          <button id="setRegisterBtn">Register</button>
+        </div>
+
+        <form id="loginForm">
+          <input
+            type="email"
+            placeholder="email"
+            id="loginEmailInput"
+            autofocus
+          />
+          <input
+            type="password"
+            placeholder="password"
+            id="loginPasswordInput"
+          />
+          <button id="loginBtn">Submit</button>
+        </form>
+
+        <form id="registerForm" novalidate name="register">
+          <input
+            type="text"
+            name="name"
+            placeholder="Login"
+            id="loginInput"
+            autofocus
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            id="emailInput"
+            autofocus
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Enter Password"
+            id="passwordInput"
+          />
+          <input
+            type="password"
+            name="repeatPassword"
+            placeholder="Repeat Password"
+            id="passwordInputRepeat"
+          />
+          <button id="btn">Submit</button>
+        </form>
+      </div>
+    </div>
   </body>
 </html>

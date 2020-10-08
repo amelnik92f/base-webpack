@@ -1,4 +1,4 @@
-import { INVALID_CLASS } from "./constants.js";
+import { INVALID_CLASS } from "./constants";
 
 export function initRegister() {
   const btn = document.getElementById("btn");

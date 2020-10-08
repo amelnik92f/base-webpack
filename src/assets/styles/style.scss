@@ -4,6 +4,12 @@
   box-sizing: border-box;
   text-rendering: optimizeLegibility;
 }
+@font-face {
+  font-family: "MyFont";
+  src: url("../fonts/Chilanka-Regular.ttf") format("ttf");
+  font-weight: 600;
+  font-style: normal;
+}
 
 body {
   font-family: "Roboto", Helvetica, Arial, sans-serif;
@@ -11,6 +17,7 @@ body {
   font-size: 12px;
   line-height: 30px;
   color: #777;
+  background: url("../images/bgg.jpg"); //test
 }
 
 .page {

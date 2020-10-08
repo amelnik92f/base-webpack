@@ -1,5 +1,7 @@
-import { initLogin } from "./login.js";
-import { initRegister } from "./register.js";
+import { initLogin } from "./login";
+import { initRegister } from "./register";
+
+import "./assets/styles/style.scss";
 
 const { loginForm, setDisabledButtonState } = initLogin();
 const { registerForm, handleRegisterButtonDisabledState } = initRegister();
@@ -27,5 +29,3 @@ function setRegisterFormActive() {
   setRegisterBtn.classList.add("active-btn");
   handleRegisterButtonDisabledState();
 }
-
-
