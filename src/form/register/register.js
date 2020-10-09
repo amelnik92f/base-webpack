@@ -1,8 +1,10 @@
-import { INVALID_CLASS } from "./constants";
+import { INVALID_CLASS } from "../../constants";
+import { ExtendedNode } from "../../utils";
+import { registerTemplate } from "./template";
 
-export function initRegister() {
-  const btn = document.getElementById("btn");
-  const registerForm = document.forms["register"];
+export function mountRegister() {
+  const registerForm = ExtendedNode.createFromTemplate(registerTemplate);
+  const btn = registerForm.querySelector("#registerBtn");
 
   const formHelper = {
     name: {
@@ -54,6 +56,7 @@ export function initRegister() {
       };
     },
   };
+  handleRegisterButtonDisabledState();
 
   registerForm.addEventListener("input", (event) => {
     const name = event.target.name;
@@ -86,8 +89,5 @@ export function initRegister() {
     btn.disabled = !formHelper.checkFormValidation();
   }
 
-  return {
-    registerForm,
-    handleRegisterButtonDisabledState,
-  };
+  return registerForm;
 }

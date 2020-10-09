@@ -1,23 +1,19 @@
-import { INVALID_CLASS } from "./constants";
+import { INVALID_CLASS, PAGE_REF, BASE_USERS } from "../../constants";
+import { ExtendedNode } from "../../utils";
+import { loginTemplate } from "./template";
 
-export function initLogin() {
-  const user = {
-    email: "me@me.me",
-    password: "meme",
-    name: "Carl Elias",
-  };
-  const page = document.getElementById("page");
-
-  const loginEmail = document.getElementById("loginEmailInput");
-  const loginPassword = document.getElementById("loginPasswordInput");
-  const loginBtn = document.getElementById("loginBtn");
-  const loginForm = document.getElementById("loginForm");
+export function mountLogin() {
+  const loginForm = ExtendedNode.createFromTemplate(loginTemplate);
+  const loginEmail = loginForm.querySelector("#loginEmailInput");
+  const loginPassword = loginForm.querySelector("#loginPasswordInput");
+  const loginBtn = loginForm.querySelector("#loginBtn");
 
   let message = null;
 
   loginEmail.addEventListener("input", eventHandler);
   loginPassword.addEventListener("input", eventHandler);
   loginBtn.addEventListener("click", onClick);
+  setDisabledButtonState();
 
   function eventHandler(event) {
     const hasInvalidClass = event.target.classList.contains(INVALID_CLASS);
@@ -32,7 +28,7 @@ export function initLogin() {
     }
 
     if (message) {
-      page.classList.remove(INVALID_CLASS);
+      PAGE_REF.classList.remove(INVALID_CLASS);
       message.remove();
       message = null;
     }
@@ -44,30 +40,28 @@ export function initLogin() {
     event.preventDefault();
     message = document.createElement("div");
     message.classList.add("message");
-
+    const user = BASE_USERS.find(({ email }) => email === loginEmail.value);
     if (
+      user &&
       loginEmail.value === user.email &&
       loginPassword.value === user.password
     ) {
       message.innerText = `Hello, ${user.name}!`;
     } else {
-      message.innerText = "Вы ввели неверный пароль. Попробуйте снова.";
-      page.classList.add(INVALID_CLASS);
+      message.innerText = user
+        ? "Вы ввели неверный пароль. Попробуйте снова."
+        : "Пользователь с указанным email не найден";
+      PAGE_REF.classList.add(INVALID_CLASS);
       loginForm.reset();
-
       setDisabledButtonState();
     }
 
-    page.append(message);
+    PAGE_REF.append(message);
   }
 
   function setDisabledButtonState() {
-    if (loginEmail.value === "" || loginPassword.value === "") {
-      loginBtn.disabled = true;
-    } else {
-      loginBtn.disabled = false;
-    }
+    loginBtn.disabled = !loginEmail.value || !loginPassword.value;
   }
 
-  return { loginForm, setDisabledButtonState };
+  return loginForm;
 }

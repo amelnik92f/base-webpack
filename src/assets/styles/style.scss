@@ -31,7 +31,7 @@ body {
   background: tomato;
 }
 
-.container {
+.form-container {
   max-width: 400px;
   width: 100%;
   margin: 0 auto;
@@ -71,7 +71,7 @@ input.invalid:focus {
   box-shadow: 0 0 1px 1px tomato;
 }
 
-button {
+.form-button {
   cursor: pointer;
   width: 100%;
   border: none;
@@ -86,32 +86,32 @@ button {
   display: flex;
 }
 
-.buttons button {
+.buttons .form-button {
   color: #4caf50;
   background-color: #fff;
   font-weight: 600;
 }
 
-.buttons button.active-btn {
+.buttons .form-button.active-btn {
   background-color: #024705;
   color: #fff;
 }
 
-button:hover {
+.form-button:hover {
   background: #43a047;
   transition: background-color 0.3s ease-in-out;
 }
 
-.buttons button:not(.active-btn):hover {
+.buttons .form-button:not(.active-btn):hover {
   background-color: #eee;
 }
 
-button:disabled {
+.form-button:disabled {
   opacity: 0.6;
   cursor: default;
 }
 
-button:active {
+.form-button:active {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
 }
 
