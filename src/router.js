@@ -9,33 +9,24 @@ export const CLIENT_ROUTE = "/clients";
 export const NOT_FOUND = "/not-found";
 
 const routerConfig = {
-  [MAIN_ROUTE]: withPageWrapper(
-    withLoginProtected((user, page) => {
-      page.innerHTML = "";
+  [MAIN_ROUTE]: withLoginProtected((user) => {
+    const userInfoElement = document.createElement("div");
+    userInfoElement.innerHTML = `<div>${user.name} пользователь в здании.</div>`;
 
-      const userInfoElement = document.createElement("div");
-      userInfoElement.innerHTML = `<div>${user.name} пользователь в здании.</div>`;
+    PAGE_REF.appendChild(userInfoElement);
+  }),
 
-      page.appendChild(userInfoElement);
-    })
-  ),
-
-  [CLIENT_ROUTE]: withPageWrapper(
-    withLoginProtected((user, page) => {
-      page.innerHTML = "";
-      const userList = new UserList(users);
-      userList.appendMeTo(page);
-    })
-  ),
+  [CLIENT_ROUTE]: withLoginProtected(() => {
+    const userList = new UserList(users);
+    userList.appendMeTo(PAGE_REF);
+  }),
 
   [LOGIN_ROUTE]: () => {
-    PAGE_REF.innerHTML = "";
     const form = mountForms();
     PAGE_REF.appendChild(form);
   },
 
   [NOT_FOUND]: () => {
-    PAGE_REF.innerHTML = "";
     const notFound = document.createElement("div");
     notFound.innerText = `Page is not found((`;
 
@@ -48,6 +39,7 @@ const getTrimedRoute = (path) => {
 };
 
 const router = () => {
+  PAGE_REF.innerHTML = "";
   const trimmed = window.location.hash
     ? getTrimedRoute(window.location.hash)
     : MAIN_ROUTE;
@@ -72,21 +64,5 @@ function withLoginProtected(routeFunction) {
     } else {
       window.location.hash = LOGIN_ROUTE;
     }
-  };
-}
-
-function withPageWrapper(routeFunction) {
-  return (...args) => {
-    let wrapper = document.getElementById("main");
-
-    if (!wrapper) {
-      PAGE_REF.innerHTML = "";
-      const main = document.createElement("main");
-      main.innerHTML = `<header></header><div id="main"></div>`;
-      wrapper = main.querySelector("#main");
-      PAGE_REF.appendChild(main);
-    }
-
-    routeFunction(wrapper, ...args);
   };
 }
